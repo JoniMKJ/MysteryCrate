@@ -1,88 +1,88 @@
 # 🎁 MysteryBox
 
-Mystery crate plugin for **PocketMine-MP (API 5)** with **form-based reward management** — no chest GUIs, no external dependencies.
+Plugin de cajas misteriosas para **PocketMine-MP (API 5)** con **gestión de recompensas mediante forms** — sin GUI de cofres, sin dependencias externas.
 
-**Author:** joni
+**Autor:** joni
 
 ---
 
-## ✨ Features
+## ✨ Características
 
-- Custom mystery crate item (nether star, unplaceable, shows the possible drops in its lore).
-- Right-click to open: consumes one crate, rolls common + exclusive rewards, drops overflow on the ground.
-- Configurable cooldown per player.
-- **Loot management entirely through forms** (`/mysterybox loot`):
-  - Add the exact stack you are holding (`+ Add item in hand`)
-  - Remove a specific reward from the list
-  - Clear a whole pool (with confirmation dialog)
-- Configurable reward counts, messages and crate name (`config.yml`).
-- Loot is stored serialized (base64 + NBT) inside `config.yml`.
-- Zero external dependencies.
+- Ítem de caja misteriosa personalizado (nether star, incolocable, muestra los drops posibles en su lore).
+- Click derecho para abrir: consume una caja, lanza recompensas comunes + exclusivas y tira al suelo lo que no quepa en tu inventario.
+- Cooldown configurable por jugador.
+- **Gestión del loot completamente por forms** (`/mysterybox loot`):
+  - Agregar el stack exacto que tienes en la mano (`+ Agregar item en mano`)
+  - Quitar una recompensa específica de la lista
+  - Vaciar un pool completo (con diálogo de confirmación)
+- Cantidad de recompensas, mensajes y nombre de la caja configurables (`config.yml`).
+- El loot se guarda serializado (base64 + NBT) dentro de `config.yml`.
+- Cero dependencias externas.
 
-## 📦 Installation
+## 📦 Instalación
 
-1. Download or clone this repository.
-2. Place the plugin folder (or a phar/zip build) into your server's `plugins/` directory.
-3. Start the server once to generate `config.yml`.
-4. In-game, run `/mysterybox loot` and add items from your hand to the **Common** and **Exclusive** pools.
-5. Give crates with `/mysterybox give <player>` or `/mysterybox giveall`.
+1. Descarga o clona este repositorio.
+2. Coloca la carpeta del plugin (o un build .phar/.zip) dentro del directorio `plugins/` de tu servidor.
+3. Inicia el servidor una vez para generar `config.yml`.
+4. En el juego, ejecuta `/mysterybox loot` y agrega items desde tu mano a los pools **Common** y **Exclusive**.
+5. Reparte cajas con `/mysterybox give <jugador>` o `/mysterybox giveall`.
 
-## 🛠️ Building
+## 🛠️ Compilación
 
-For development, PMMP-MP can load the plugin folder directly. You can also zip/phar it:
+Para desarrollo, PMMP-MP puede cargar la carpeta del plugin directamente. También puedes empaquetarlo en zip:
 
 ```bash
 zip -r MysteryBox.zip . -x "*.git*" "build/*"
 ```
 
-Then drop `MysteryBox.zip` into `plugins/` and restart the server.
+Luego deja `MysteryBox.zip` en `plugins/` y reinicia el servidor.
 
-## 🎮 Commands & Permissions
+## 🎮 Comandos y permisos
 
-| Command | Description | Permission |
+| Comando | Descripción | Permiso |
 |---|---|---|
-| `/mysterybox loot` | Open the loot management forms (in-game only) | `mysterybox.admin` |
-| `/mysterybox give <player> [amount]` | Give crates to a player | `mysterybox.admin` |
-| `/mysterybox giveall [amount]` | Give crates to everyone online | `mysterybox.admin` |
+| `/mysterybox loot` | Abre los forms de gestión del loot (solo en juego) | `mysterybox.admin` |
+| `/mysterybox give <jugador> [cantidad]` | Da cajas a un jugador | `mysterybox.admin` |
+| `/mysterybox giveall [cantidad]` | Da cajas a todos los jugadores conectados | `mysterybox.admin` |
 
-Aliases: `/mbox`, `/crate`.  **Default permission:** `op`.
+Alias: `/mbox`, `/crate`. **Permiso por defecto:** `op`.
 
-## ⚙️ Configuration (`config.yml`)
+## ⚙️ Configuración (`config.yml`)
 
 ```yaml
-crate-name: '&l&bLucky &3Mystery &bBox'   # Display name (supports & color codes)
-prefix: '&l&6MysteryBox &r&7| '           # Message prefix
-cooldown: 10                              # Seconds between openings
-common-rewards: 3                         # Common rewards per opening
-exclusive-rewards: 1                      # Exclusive rewards per opening
+crate-name: '&l&bLucky &3Mystery &bBox'   # Nombre a mostrar (soporta códigos & de color)
+prefix: '&l&6MysteryBox &r&7| '           # Prefijo de los mensajes
+cooldown: 10                              # Segundos de espera entre aperturas
+common-rewards: 3                         # Recompensas comunes por apertura
+exclusive-rewards: 1                      # Recompensas exclusivas por apertura
 ```
 
-> The serialized loot entries (`common-loot` / `exclusive-loot`) are managed in-game via the forms. Don't edit them by hand.
+> Las entradas serializadas del loot (`common-loot` / `exclusive-loot`) se gestionan en el juego mediante los forms. No las edites a mano.
 
-## 🗂️ Project layout
+## 🗂️ Estructura del proyecto
 
 ```
 plugin.yml
 resources/config.yml
 src/mysterybox/
-  MysteryBoxPlugin.php      main class, wiring
+  MysteryBoxPlugin.php      clase principal, wiring
   command/MysteryBoxCommand.php
-  crate/CrateFactory.php    crate item + lore
-  crate/CrateOpener.php     reward roll + delivery
+  crate/CrateFactory.php    ítem de la caja + lore
+  crate/CrateOpener.php     rol y entrega de recompensas
   crate/CooldownTracker.php
-  form/LootMenuForm.php     menu: common / exclusive
-  form/ManageLootForm.php   add held item / remove / clear
+  form/LootMenuForm.php     menú: común / exclusivo
+  form/ManageLootForm.php   agregar item en mano / quitar / vaciar
   form/ConfirmClearForm.php
   listener/CrateListener.php
-  loot/LootStorage.php      in-memory pools + persistence
-  loot/LootSerializer.php   base64+NBT (de)serialization
+  loot/LootStorage.php      pools en memoria + persistencia
+  loot/LootSerializer.php   serialización base64+NBT
   loot/LootType.php
 ```
 
-## 📜 License
+## 📜 Licencia
 
-MIT — see [LICENSE](LICENSE).
+MIT — ver [LICENSE](LICENSE).
 
-## 👤 Author
+## 👤 Autor
 
 **joni**
