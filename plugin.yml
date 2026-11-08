@@ -1,0 +1,14 @@
+name: MysteryBoxV2
+version: 2.0.0
+main: mysterybox\MysteryBox
+api: 5.0.0
+Author: Joni
+description: Sistema remasterizado.
+
+permissions:
+  use.mystery.crate.command:
+    default: op
+    description: Permite usar /mysterycrate (give, giveall, loot, reload)
+  mysterybox.open:
+    default: true
+    description: Permite abrir Mystery Boxes

@@ -1,0 +1,41 @@
+#=======================
+# Sistema de manejo de:
+# Amimacion
+# Configuracion global
+# Contenido que muestra
+#=======================
+box:
+  name: "&r&3&k|&r&3Mystery &bBox &r&k&3|"
+  prefix: "&l&4Linux&fHCF &r&7| "
+  store: "linuxhcf.tebex.io"
+  item: "beacon"           
+  cooldown-seconds: 10
+  max-give-amount: 64
+
+rewards:
+  common-count: 4           
+  exclusive-count: 1        
+
+animation:
+  interval-ticks: 2       
+  spin-steps: 40         
+  pause-steps: 10           
+  reveal-gap-steps: 5    
+  cycle-steps: 5            
+  radius: 3.0
+  inner-radius: 1.2         
+  height: 1.0
+  text-height: 2.5
+  rotation-speed: 0.35      
+  particles: true
+  sounds: true
+  reveal-exclusive-last: false
+
+lore:
+  header:
+    - "&bUnlock at {store}"
+    - " "
+  common-title: "&a&lCOMMON"
+  exclusive-title: "&c&lEXCLUSIVE"
+  more: "&7... and {count} more"
+  max-entries-per-tier: 20
